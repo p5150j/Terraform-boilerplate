@@ -19,3 +19,14 @@ resource "aws_subnet" "subnet2" {
   vpc_id            = "${aws_vpc.env-example.id}"
   availability_zone = "us-west-2b"
 }
+
+resource "aws_security_group" "subnetsec" {
+  vpc_id = "${aws_vpc.env-example.id}"
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["${aws_vpc.env-example.cidr_block}"]
+  }
+}
